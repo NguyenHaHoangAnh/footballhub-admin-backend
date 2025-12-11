@@ -1,0 +1,10 @@
+server:
+  port:8089
+
+spring:
+  application:
+    name: footballhub-admin-backend
+
+link:
+  url:
+    football-data-api: http://api.football-data.org/v4
