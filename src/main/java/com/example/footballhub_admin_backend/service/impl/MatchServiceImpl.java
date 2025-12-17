@@ -1,16 +1,18 @@
 package com.example.footballhub_admin_backend.service.impl;
 
-import com.example.footballhub_admin_backend._core.message.ResponseMsg;
-import com.example.footballhub_admin_backend.repository.MatchRepository;
+import com.example.core.message.ResponseMsg;
 import com.example.footballhub_admin_backend.service.MatchService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
+@Slf4j
+@Service
 public class MatchServiceImpl implements MatchService {
-    @Autowired
-    MatchRepository matchRepository;
-
-    @Override
-    public ResponseMsg<?> updateMatchManually() {
-        return ResponseMsg.newOKResponse();
+    public ResponseMsg<?> updateManually() throws Exception {
+        try {
+            return ResponseMsg.newOKResponse();
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 }
