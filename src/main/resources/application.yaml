@@ -28,7 +28,7 @@ spring:
 
 link:
   url:
-    football-data-api: http://api.football-data.org/v4
+    football-data-api: https://api.football-data.org/v4
 
 football-data-api:
   x-auth-token: 453edd7035a845e9ba771641a9d56478

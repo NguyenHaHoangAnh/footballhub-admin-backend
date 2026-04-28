@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CompetitionRepository extends BaseRepo<Competition, Integer> {
+    Competition findByCode(String code);
+
+    Competition findByThirdPartyId(Integer thirdPartyId);
 }

@@ -43,6 +43,9 @@ public class AreaServiceImpl extends AbstractCRUDService<Area, Integer, AreaRepo
             // Lấy data qua api bên thứ 3
             String jsonResponse = HttpRequestUtil.sendGet(footballDataApi + "/areas", null, xAuthToken, 60);
             AreaListDto areaListDto = Utils.getGson().fromJson(jsonResponse, AreaListDto.class);
+            if (areaListDto == null) {
+                return ResponseMsg.newResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Không lấy được danh sách khu vực tại api bên thứ 3");
+            }
 
             // Lấy data trong db
             List<Area> areas = this.findAll();
@@ -56,14 +59,14 @@ public class AreaServiceImpl extends AbstractCRUDService<Area, Integer, AreaRepo
                 }
             }
 
-            // Tạo Set chứa các name đã tồn tại trong DB (để so sánh nhanh)
-            Set<String> existingCountryCodes = areas.stream()
-                    .map(Area::getCountryCode)
+            // Tạo Set chứa các third_party_id đã tồn tại trong DB (để so sánh nhanh)
+            Set<Integer> thirdPartyIdSet = areas.stream()
+                    .map(Area::getThirdPartyId)
                     .collect(Collectors.toSet());
 
             // Lọc lấy các data ko có trong db
             List<Area> newAreas = areaListDto.getAreas().stream()
-                    .filter(dto -> !existingCountryCodes.contains(dto.getCountryCode()))
+                    .filter(dto -> !thirdPartyIdSet.contains(dto.getId()))
                     .map(dto -> {
                         Area newArea = new Area();
                         newArea.setName(dto.getName());
@@ -71,6 +74,7 @@ public class AreaServiceImpl extends AbstractCRUDService<Area, Integer, AreaRepo
                         newArea.setFlagUrl(dto.getFlag());
                         newArea.setParentAreaId(idMap.get(dto.getParentAreaId()));
                         newArea.setParentArea(dto.getParentArea());
+                        newArea.setThirdPartyId(dto.getId());
 
                         return newArea;
                     })
@@ -188,6 +192,7 @@ public class AreaServiceImpl extends AbstractCRUDService<Area, Integer, AreaRepo
             Area currentArea = optionalCurrentArea.get();
             currentArea.setName(newArea.getName());
             currentArea.setCountryCode(newArea.getCountryCode());
+            currentArea.setFlagUrl(newArea.getFlagUrl());
             currentArea.setParentAreaId(newArea.getParentAreaId());
             currentArea.setParentArea(newArea.getParentArea());
 

@@ -7,18 +7,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AreaDto {
+public class CompetitionDto {
     private Integer id;
 
     private String name;
 
-    private String countryCode;
+    private String code;
 
-    private String code; // = countryCode (api khác)
+    private AreaDto area;
 
-    private String flag;
+    private String type;
 
-    private Integer parentAreaId;
+    private String emblem;
 
-    private String parentArea;
+    private String plan;
+
+    private SeasonDto currentSeason;
 }

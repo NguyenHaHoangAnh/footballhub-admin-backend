@@ -17,10 +17,11 @@ public interface AreaMapper {
                a.flag_url as flagUrl,
                a.parent_area_id as parentAreaId,
                a.parent_area as parentArea,
+               a.third_party_id as thirdPartyId,
                a.created_at as createdAt,
                a.created_by as createdBy,
                a.updated_at as updatedAt
-            from area a
+            from football.area a
             where a.area_id in (
                select
                    a2.parent_area_id

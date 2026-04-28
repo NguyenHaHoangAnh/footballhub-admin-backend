@@ -34,4 +34,7 @@ public class Area extends BaseEntity {
 
     @Column(name = "parent_area")
     private String parentArea;
+
+    @Column(name = "third_party_id")
+    private Integer thirdPartyId;
 }

@@ -4,6 +4,11 @@ import com.example.core.repository.BaseRepo;
 import com.example.footballhub_admin_backend.model.Season;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SeasonRepository extends BaseRepo<Season, Integer> {
+    Season findByThirdPartyId(Integer thirdPartyId);
+
+    List<Season> findByCompetitionId(Integer competitionId);
 }

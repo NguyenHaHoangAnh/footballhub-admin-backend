@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TeamRepository extends BaseRepo<Team, Integer> {
+    Team findByThirdPartyId(Integer thirdPartyId);
 }
